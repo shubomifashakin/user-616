@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to the Express WebSocket App</title>
+  </head>
+  <body>
+    <h1>Welcome to the Express WebSocket App</h1>
+
+    <h2>Overview</h2>
+    <p>
+      This is a simple Express application running on port
+      <strong>3000</strong>. It connects to a PostgreSQL database and includes a
+      WebSocket server that allows real-time messaging.
+    </p>
+
+    <h2>⚠️ Important: Prisma Migration Required</h2>
+    <p>
+      Before using the application, ensure that you migrate the Prisma schema to
+      the running PostgreSQL database. Run the following command:
+    </p>
+    <pre>
+npx prisma migrate deploy
+    </pre>
+    <p>Failure to do so may result in database-related errors.</p>
+
+    <h2>WebSocket</h2>
+    <p>
+      The WebSocket server allows connections from
+      <strong>localhost:5173</strong>. Messages sent through the WebSocket are
+      broadcast to all connected clients and stored in the database.
+    </p>
+
+    <h2>Available Routes</h2>
+
+    <h3>1. Register a New User</h3>
+    <p><strong>POST /user/new</strong></p>
+    <p>
+      This route allows users to register a new account. The request body should
+      be a JSON object with the following fields:
+    </p>
+    <pre>
+{
+  "first_name": "John",
+  "last_name": "Doe",
+  "username": "johndoe"
+}
+    </pre>
+    <p>Note: Usernames must be unique.</p>
+
+    <h3>2. Retrieve User Data</h3>
+    <p><strong>GET /:username</strong></p>
+    <p>
+      This route fetches user details based on the provided username in the URL.
+    </p>
+    <p><em>Example:</em> <code>GET /johndoe</code></p>
+
+    <h4>Response:</h4>
+    <pre>
+{
+  "user": {
+    "first_name": "John",
+    "last_name": "Doe",
+    "username": "johndoe"
+  },
+  "status": "success"
+}
+    </pre>
+
+    <h2>WebSocket Message Format</h2>
+    <p>
+      Messages sent through the WebSocket should be in the following format:
+    </p>
+    <pre>
+{
+  "content": "Hello, world!",
+  "username": "johndoe"
+}
+    </pre>
+    <p>
+      When a message is sent, it will be broadcast to all connected clients and
+      stored in the database.
+    </p>
+
+    <h2>Status</h2>
+    <p>🚀 The server is running and ready to accept requests!</p>
+  </body>
+</html>

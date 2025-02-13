@@ -1,0 +1,35 @@
+services:
+  express-app:
+    image: my-express-server #CHANGE TO THE NAME YOU USED TO BUILD THE DOCKER IMAGE
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+      redis_db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://admin:1234@postgres_db:5432/postgres
+      - REDIS_URL=redis://redis_db:6379/0
+  postgres_db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=1234
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin"]
+      interval: 5s
+      retries: 5
+      start_period: 10s
+  redis_db:
+    image: redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
