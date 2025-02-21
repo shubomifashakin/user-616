@@ -6,7 +6,7 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 
 import { io } from "./socket";
-import { userRouter } from "../src/routes/userRouter";
+import { userRouter } from "./routes/userRouter";
 
 dotenv.config();
 

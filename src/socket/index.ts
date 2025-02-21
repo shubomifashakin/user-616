@@ -22,7 +22,7 @@ io.on("connection", (socket) => {
     const { data, success, error } = socketMessageValidator.safeParse(message);
 
     if (!success) {
-      console.log(`invalid message from ${error.message}`);
+      console.log(`invalid message: ${error.message}`, new Date());
 
       return;
     }

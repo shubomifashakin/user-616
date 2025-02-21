@@ -10,7 +10,7 @@ WORKDIR /app
 
 RUN npm install
 RUN npx prisma generate
+RUN npm run build
+
 
 EXPOSE 3000
-
-CMD ["npx", "ts-node", "src/index.ts"]

@@ -1,6 +1,6 @@
 services:
   express-app:
-    image: my-express-server #CHANGE TO THE NAME YOU USED TO BUILD THE DOCKER IMAGE
+    image: my-express-app #CHANGE TO THE NAME YOU USED TO BUILD THE DOCKER IMAGE
     ports:
       - "3000:3000"
     depends_on:
@@ -11,6 +11,7 @@ services:
     environment:
       - DATABASE_URL=postgresql://admin:1234@postgres_db:5432/postgres
       - REDIS_URL=redis://redis_db:6379/0
+    command: sh -c "npx prisma migrate deploy && npm start"
   postgres_db:
     image: postgres
     ports:

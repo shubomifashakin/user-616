@@ -15,7 +15,9 @@ userRouter.post("/new", async (req: Request, res: Response) => {
   const { success, data, error } = newUserSchemaValidator.safeParse(body);
 
   if (!success) {
-    res.status(400).json({ message: error.message, status: "fail" });
+    console.log(error.message, new Date());
+
+    res.status(400).json({ message: error.issues, status: "fail" });
 
     return;
   }
@@ -51,8 +53,11 @@ userRouter.post("/new", async (req: Request, res: Response) => {
 
         return;
       }
+
+      console.log(error.message, new Date());
     }
 
+    console.log(JSON.stringify(error), new Date());
     res.status(500).json("Internal server error");
 
     return;
@@ -67,7 +72,7 @@ userRouter.get("/:username", async (req: Request, res: Response) => {
     .safeParse({ username });
 
   if (!success) {
-    res.status(400).json({ message: error.message, status: "fail" });
+    res.status(400).json({ message: error.errors, status: "fail" });
 
     return;
   }
