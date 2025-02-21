@@ -90,4 +90,12 @@ This is used to get a particular user from the db
 
 ## Real-time Features
 
-The API includes a Socket.IO server for real-time communication between connected users. Details available in the API documentation.
+The API includes a Socket.IO server(on port 3000) for real-time communication between connected users.
+**Message Body**
+
+```
+{
+    username:string,
+    content:string
+}
+```
